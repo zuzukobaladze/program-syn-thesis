@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Program Synthesis Paradigms - Bachelor's Thesis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        line-height: 1.6;
+        color: #1a1a1a;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .hero {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 3rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .logo {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 2rem;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: white;
+        font-weight: bold;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 2rem;
+        font-weight: 400;
+      }
+
+      .authors {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .author {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        font-weight: 500;
+      }
+
+      .abstract {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 2rem;
+        border-radius: 15px;
+        margin-bottom: 2rem;
+        text-align: left;
+        border-left: 4px solid #667eea;
+      }
+
+      .abstract h2 {
+        color: #667eea;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+      }
+
+      .paradigms {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .paradigm {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .paradigm:hover {
+        transform: translateY(-5px);
+      }
+
+      .paradigm h3 {
+        color: #667eea;
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+      }
+
+      .paradigm ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .paradigm li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      .paradigm li:last-child {
+        border-bottom: none;
+      }
+
+      .cta-section {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: transform 0.3s ease;
+        margin: 0.5rem;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: #667eea;
+        border: 2px solid #667eea;
+      }
+
+      .btn-secondary:hover {
+        background: #667eea;
+        color: white;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .stat {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 1.5rem;
+        border-radius: 10px;
+        text-align: center;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #667eea;
+      }
+
+      .stat-label {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .footer {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+      }
+
+      .citation {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 10px;
+        font-family: "Courier New", monospace;
+        font-size: 0.9rem;
+        margin: 1rem 0;
+        text-align: left;
+        overflow-x: auto;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem;
+        }
+
+        .hero {
+          padding: 2rem;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .paradigms {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Hero Section -->
+      <div class="hero">
+        <div class="logo">PS</div>
+        <h1>From Provable Correctness to Probabilistic Generation</h1>
+        <p class="subtitle">
+          A Comparative Review of Program Synthesis Paradigms
+        </p>
+
+        <div class="authors">
+          <span class="author">Zurabi Kobaladze</span>
+          <span class="author">Anna Arnania</span>
+          <span class="author">Tamar Sanikidze</span>
+        </div>
+
+        <p>
+          <strong
+            >Bachelor's Thesis — Kutaisi International University, School of
+            Computer Science</strong
+          >
+        </p>
+        <p>
+          <em>Supervisor:</em> Prof. Besik Dundua |
+          <em>Associate Supervisor:</em> Prof. Isabella Dramnesc
+        </p>
+      </div>
+
+      <!-- Abstract -->
+      <div class="abstract">
+        <h2>📄 Abstract</h2>
+        <p>
+          <em>Program synthesis</em>, the automated generation of executable
+          code from high-level specifications, has long stood as a central goal
+          in computer science. This thesis presents a comprehensive comparative
+          literature review of the five major paradigms that have shaped the
+          field:
+        </p>
+        <ul style="margin: 1rem 0; padding-left: 2rem">
+          <li>
+            <strong>Logic-Based (Deductive) Synthesis</strong> — Formal proofs
+            and theorem proving
+          </li>
+          <li>
+            <strong>Inductive (Example-Based) Synthesis</strong> — Learning from
+            input-output examples
+          </li>
+          <li>
+            <strong>Sketch & Schema-Based Synthesis</strong> — Human-guided
+            program completion
+          </li>
+          <li>
+            <strong>LLM-Based Synthesis</strong> — Large language model
+            approaches
+          </li>
+          <li>
+            <strong>Neuro-Symbolic (Hybrid) Synthesis</strong> — Combining
+            neural and symbolic methods
+          </li>
+        </ul>
+        <p>
+          The review outlines each paradigm's motivations, mechanisms, seminal
+          systems, and fundamental trade-offs— ultimately showcasing the
+          transition from formal methods to statistical models and the ongoing
+          quest to balance correctness guarantees with accessibility.
+        </p>
+      </div>
+
+      <!-- Paradigms Overview -->
+      <div class="paradigms">
+        <div class="paradigm">
+          <h3>🔬 Logic-Based Synthesis</h3>
+          <ul>
+            <li><strong>Coq</strong> — Proof assistant with extraction</li>
+            <li><strong>Theorema</strong> — Formal mathematics system</li>
+            <li><strong>KIDS</strong> — Interactive development</li>
+            <li><strong>Focus:</strong> Provable correctness</li>
+          </ul>
+        </div>
+
+        <div class="paradigm">
+          <h3>🎯 Inductive Synthesis</h3>
+          <ul>
+            <li><strong>FlashFill</strong> — Excel string manipulation</li>
+            <li><strong>PROSE</strong> — Meta-framework</li>
+            <li><strong>ESCHER</strong> — Recursive programs</li>
+            <li><strong>Focus:</strong> User accessibility</li>
+          </ul>
+        </div>
+
+        <div class="paradigm">
+          <h3>✏️ Sketch-Based Synthesis</h3>
+          <ul>
+            <li><strong>Sketch</strong> — C-like language</li>
+            <li><strong>Rosette</strong> — Solver-aided programming</li>
+            <li><strong>SyGuS</strong> — Standardized framework</li>
+            <li><strong>Focus:</strong> Human-computer synergy</li>
+          </ul>
+        </div>
+
+        <div class="paradigm">
+          <h3>🤖 LLM-Based Synthesis</h3>
+          <ul>
+            <li><strong>Codex</strong> — GPT-based code generation</li>
+            <li><strong>AlphaCode</strong> — Competitive programming</li>
+            <li><strong>GitHub Copilot</strong> — IDE integration</li>
+            <li><strong>Focus:</strong> Natural language to code</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Statistics -->
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Major Paradigms</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">Seminal Systems</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Key Papers</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">2025</div>
+          <div class="stat-label">Publication Year</div>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="cta-section">
+        <h2>📚 Access the Full Thesis</h2>
+        <p>
+          Explore the complete comparative analysis with detailed technical
+          discussions, case studies, and future directions.
+        </p>
+        <a href="./Thesis.pdf" class="btn">📄 Download PDF</a>
+        <a href="./thesis.html" class="btn btn-secondary">🌐 Read Online</a>
+      </div>
+
+      <!-- Citation -->
+      <div class="footer">
+        <h3>📖 Citation</h3>
+        <div class="citation">
+          @thesis{programsynthesis2025, title = {From Provable Correctness to
+          Probabilistic Generation: A Comparative Review of Program Synthesis
+          Paradigms}, author = {Kobaladze, Zurabi and Arnania, Anna and
+          Sanikidze, Tamar}, year = {2025}, school = {Kutaisi International
+          University}, type = {Bachelor's Thesis} }
+        </div>
+
+        <h3>⭐ Star This Repository</h3>
+        <p>
+          If this research helped or inspired you, please consider starring this
+          repository to support our work and help others discover it.
+        </p>
+
+        <h3>🧠 Why This Matters</h3>
+        <p>
+          Understanding how programs can be automatically generated — from
+          <strong>formal logic</strong> or <strong>natural language</strong> —
+          is essential to the future of software engineering. This thesis offers
+          a comprehensive roadmap of where the field of
+          <strong>program synthesis</strong> has been, and where it's headed
+          next.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
