@@ -178,6 +178,36 @@
         color: white;
       }
 
+      .arxiv-highlight {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #1a1a1a;
+        color: #fff;
+        padding: 0.6rem 1rem;
+        border-radius: 999px;
+        border: 2px solid #b31b1b;
+        text-decoration: none;
+        font-weight: 600;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease;
+        margin-top: 1.25rem;
+      }
+
+      .arxiv-highlight .pill {
+        background: #b31b1b;
+        color: #fff;
+        padding: 0.2rem 0.6rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .arxiv-highlight:hover {
+        transform: translateY(-2px);
+      }
+
       .stats {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -266,6 +296,16 @@
           <em>Supervisor:</em> Prof. Besik Dundua |
           <em>Associate Supervisor:</em> Prof. Isabella Dramnesc
         </p>
+        <a
+          href="https://arxiv.org/abs/2508.00013"
+          class="arxiv-highlight"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View this paper on arXiv"
+        >
+          <span class="pill">arXiv</span>
+          <span>View the paper on arXiv</span>
+        </a>
       </div>
 
       <!-- Abstract -->
@@ -378,6 +418,13 @@
           Explore the complete comparative analysis with detailed technical
           discussions, case studies, and future directions.
         </p>
+        <a
+          href="https://arxiv.org/abs/2508.00013"
+          class="btn"
+          target="_blank"
+          rel="noopener noreferrer"
+          >🔗 View on arXiv</a
+        >
         <a href="./Thesis.pdf" class="btn">📄 Download PDF</a>
         <a href="./thesis.html" class="btn btn-secondary">🌐 Read Online</a>
       </div>
